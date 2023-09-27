@@ -1,0 +1,498 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --background-color: #000;
+  --text-color: #2a9d8f;
+  --grid-line: #7777770f;
+  --white: #fff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.05;
+  color: var(--text-color);
+  transition: color 1s;
+  font-family: "Croissant One", "Poppins", sans-serif;
+}
+
+header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  padding: 2.8rem 3.5rem;
+  z-index: 10;
+  display: flex;
+  pointer-events: none;
+}
+@media only screen and (max-width: 767px) {
+  header {
+    padding: 1.5rem 2rem;
+  }
+}
+header .logoBox {
+  color: var(--white);
+  font-size: 2rem;
+  display: flex;
+}
+@media only screen and (max-width: 767px) {
+  header .logoBox {
+    font-size: 1.7rem;
+  }
+}
+
+.mouseMoveTracker {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  pointer-events: none;
+}
+@media only screen and (max-width: 1024px) {
+  .mouseMoveTracker {
+    display: none;
+  }
+}
+.mouseMoveTracker .mContain {
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+}
+.mouseMoveTracker .mContain .lineText {
+  font-size: 11px;
+  color: #5d5d5d;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+.mouseMoveTracker .mContain.bottom {
+  right: 1.8rem;
+  bottom: 0.5rem;
+  width: 400px;
+  height: 1rem;
+}
+@media only screen and (max-width: 767px) {
+  .mouseMoveTracker .mContain.bottom {
+    width: calc(100vw - 2rem);
+    right: 1rem;
+    bottom: 0.05rem;
+  }
+}
+.mouseMoveTracker .mContain.bottom .inner {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.5rem;
+}
+.mouseMoveTracker .mContain.bottom .lineText {
+  width: 50px;
+}
+.mouseMoveTracker .mContain.bottom .line {
+  width: calc(400px - 1.5rem - 50px);
+  border-bottom: 1px solid #8b8b8b;
+  height: 0.5rem;
+}
+.mouseMoveTracker .mContain.bottom .line:first-child {
+  border-right: 1px solid #8b8b8b;
+}
+.mouseMoveTracker .mContain.bottom .line:last-child {
+  border-left: 1px solid #8b8b8b;
+}
+.mouseMoveTracker .mContain.side {
+  right: 0.5rem;
+  top: 1.8rem;
+  width: 1rem;
+  height: 400px;
+  flex-direction: column;
+  align-items: flex-end;
+}
+@media only screen and (max-width: 767px) {
+  .mouseMoveTracker .mContain.side {
+    height: calc(100vh - 2rem);
+    top: 1rem;
+    right: 0.05rem;
+  }
+}
+.mouseMoveTracker .mContain.side .inner {
+  display: grid;
+  align-items: center;
+  grid-template-rows: auto auto auto;
+  gap: 0.5rem;
+}
+.mouseMoveTracker .mContain.side .line {
+  height: calc(400px - 1.5rem - 50px);
+  border-right: 1px solid #8b8b8b;
+  width: 0.5rem;
+}
+.mouseMoveTracker .mContain.side .line:first-child {
+  border-bottom: 1px solid #8b8b8b;
+}
+.mouseMoveTracker .mContain.side .line:last-child {
+  border-top: 1px solid #8b8b8b;
+}
+.mouseMoveTracker .mContain.side .lineText {
+  height: 50px;
+  writing-mode: vertical-lr;
+}
+
+main {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background-size: 32px 32px;
+  background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-position: center center;
+  border: 1.8rem solid #fff;
+  -webkit-clip-path: polygon(25% 50%, 75% 50%, 75% 50%, 25% 50%);
+          clip-path: polygon(25% 50%, 75% 50%, 75% 50%, 25% 50%);
+}
+@media only screen and (max-width: 1024px) {
+  main {
+    overflow-y: auto;
+    height: auto;
+  }
+}
+@media only screen and (max-width: 767px) {
+  main {
+    border-width: 0.8rem;
+  }
+}
+main::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  transition: backround-color 1s;
+  z-index: -5;
+}
+
+.domLoaded main {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  transition: all 1.2s cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
+}
+
+section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200vw;
+  display: grid;
+  padding: 20vh;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30vh;
+  touch-action: none;
+}
+@media only screen and (max-width: 1024px) {
+  section {
+    grid-template-columns: 100%;
+    gap: 15vw;
+    position: relative;
+    width: 100%;
+    padding: 10vh 3rem;
+  }
+}
+@media only screen and (max-width: 767px) {
+  section {
+    gap: 15vw;
+    padding: 10vh 1rem 5vh;
+  }
+}
+section .gallery__item {
+  height: 100%;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  transition: opacity 0.25s, transform 0.25s, box-shadow 0.25s, border 0.25s;
+  overflow: hidden;
+}
+@media only screen and (max-width: 767px) {
+  section .gallery__item {
+    gap: 1rem;
+  }
+}
+section .pName {
+  display: none;
+  font-size: 3vw;
+  color: var(--white);
+}
+@media only screen and (max-width: 1024px) {
+  section .pName {
+    display: block;
+  }
+}
+@media only screen and (max-width: 767px) {
+  section .pName {
+    font-size: 4.5vw;
+  }
+}
+section img {
+  aspect-ratio: 3/1.62;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(1);
+  transition: all 0.35s ease-in-out;
+}
+section .imgBox {
+  display: flex;
+  transition: opacity ease-in-out 0.35s;
+  background: var(--background-color);
+  border: 1px solid rgba(255, 255, 255, 0.0588235294);
+}
+section .imgBox picture,
+section .imgBox img {
+  display: block;
+}
+
+.mainTitle {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+}
+@media only screen and (max-width: 1024px) {
+  .mainTitle {
+    display: none;
+  }
+}
+.mainTitle .inner {
+  transform: scale(1.8);
+  display: flex;
+  transform-origin: center;
+}
+
+h1 {
+  font-size: 8vw;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+@media only screen and (min-width: 1680px) {
+  h1 {
+    font-size: 7vw;
+  }
+}
+@media only screen and (max-width: 980px) {
+  h1 {
+    font-size: 7vw;
+  }
+}
+@media only screen and (max-width: 767px) {
+  h1 {
+    font-size: 8vw;
+  }
+}
+h1 > * {
+  display: inline-block;
+}
+
+.domLoaded .mainTitle .inner {
+  transform: scale(1);
+  transition: transform 1.2s cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
+}
+
+@media only screen and (min-width: 1025px) {
+  body.hovered main::before {
+    opacity: 0.95;
+  }
+  body.hovered .gallery__item .imgBox {
+    opacity: 0.1;
+  }
+  body.hovered .gallery__item.hovered {
+    transform: scale(1.1);
+    border-radius: 1rem;
+  }
+}
+@media only screen and (min-width: 1025px) and (max-width: 767px) {
+  body.hovered .gallery__item.hovered {
+    transform: scale(1.05);
+  }
+}
+@media only screen and (min-width: 1025px) {
+  body.hovered .gallery__item.hovered .imgBox {
+    opacity: 1;
+  }
+  body.hovered .gallery__item.hovered img {
+    filter: grayscale(0);
+  }
+}
+@media (hover: none) {
+  #cursor {
+    opacity: 0 !important;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #cursor {
+    opacity: 0 !important;
+  }
+}
+body:not(.cMenuEnabled) #cursor {
+  display: none;
+}
+
+#cursor {
+  pointer-events: none;
+  position: fixed;
+  display: block;
+  transform-origin: center center;
+  perspective: none;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  width: 70px;
+  height: 70px;
+  transform: translateX(-50%) translateY(-50%) translateZ(2px);
+  border-radius: 50%;
+  transition: width 0.3s cubic-bezier(0.075, 0.82, 0.165, 1), height 0.3s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  font-family: "Poppins";
+}
+#cursor::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(119, 119, 119, 0.5803921569);
+  transition: width 0.3s cubic-bezier(0.075, 0.82, 0.165, 1), height 0.3s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transform: translateX(-50%) translateY(-50%);
+}
+#cursor .t_scroll {
+  writing-mode: vertical-lr;
+  transform: scale(-1) translateX(50%);
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 400;
+  left: 50%;
+  top: 0px;
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 2em;
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+#cursor .t_scroll > .inner_ {
+  height: 50px;
+  width: 18px;
+}
+#cursor .t_scroll > .inner_ > span {
+  position: absolute;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  display: block;
+  top: 0;
+  text-align: center;
+  animation: scroll_ 2s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+}
+#cursor .t_scroll > .inner_ > span:nth-child(2) {
+  animation-delay: 1s;
+}
+#cursor .r_scroll,
+#cursor .v_scroll {
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 400;
+  top: 0;
+  left: 0px;
+  opacity: 0;
+  overflow: hidden;
+  border-radius: 2em;
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+#cursor .r_scroll > .inner_,
+#cursor .v_scroll > .inner_ {
+  height: 20px;
+  width: 60px;
+  position: relative;
+}
+#cursor .r_scroll > .inner_ > span,
+#cursor .v_scroll > .inner_ > span {
+  position: absolute;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  animation: scroll_v 2s cubic-bezier(0.645, 0.045, 0.355, 1) infinite;
+  background-color: #f6f6f6;
+  border-radius: 1em;
+  text-align: center;
+}
+#cursor .r_scroll > .inner_ > span:nth-child(2),
+#cursor .v_scroll > .inner_ > span:nth-child(2) {
+  animation-delay: 1s;
+}
+#cursor.hover {
+  width: 20px;
+  height: 20px;
+  background: rgba(var(--text-color), 0.5);
+  mix-blend-mode: hard-light;
+}
+#cursor.hover::before {
+  border-color: transparent;
+}
+#cursor.visit::before {
+  width: 55px;
+  height: 55px;
+  mix-blend-mode: hard-light;
+}
+#cursor.visit .v_scroll {
+  left: 15px;
+  opacity: 1;
+  border-radius: 50%;
+}
+#cursor.read .r_scroll {
+  left: 15px;
+  opacity: 1;
+}
+
+@keyframes scroll_v {
+  from {
+    transform: translate(-50px, 0);
+  }
+  to {
+    transform: translate(50px, 0);
+  }
+}
+@keyframes scroll_ {
+  from {
+    transform: translate(0, 47px);
+  }
+  to {
+    transform: translate(0, -47px);
+  }
+}/*# sourceMappingURL=main.css.map */
